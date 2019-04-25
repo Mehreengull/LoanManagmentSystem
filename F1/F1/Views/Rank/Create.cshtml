@@ -1,8 +1,16 @@
-﻿@model F1.Models.rank
+﻿@model F1.Models.rankViewModel
 
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_newlayout.cshtml";
+
+    DB51Entities db = new DB51Entities();
+    List<String> lst = new List<string>();
+    foreach (Rank r in db.Ranks)
+    {
+        lst.Add(r.Name);
+
+    }
 }
 
 <h2>Create</h2>

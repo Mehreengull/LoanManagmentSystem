@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using F1.Models;
 namespace F1.Controllers
 {
     public class CompanyController : Controller
@@ -28,13 +28,26 @@ namespace F1.Controllers
 
         // POST: Company/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(companyViewModel model)
         {
             try
             {
-                // TODO: Add insert logic here
+                DB51Entities db = new DB51Entities();
+                Company c = new Company();
+                c.Code = Convert.ToInt16(model.Cid);
+                c.Name = model.coName;
+                c.Fax = model.fax;
+                c.Email = model.email;
+                c.PhoneNo = model.phoneNumber;
+                c.PostalCode = model.postalCode;
+                c.Url = model.url;
+                db.Companies.Add(c);
+                db.SaveChanges();
 
-                return RedirectToAction("Index");
+
+                return View();
+
+               // return RedirectToAction("Index");
             }
             catch
             {

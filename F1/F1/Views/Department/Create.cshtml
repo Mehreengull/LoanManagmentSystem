@@ -1,8 +1,13 @@
-﻿@model F1.Models.Department
-
+﻿@model F1.Models.DepartmentViewModel
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_newlayout.cshtml";
+    DB51Entities db = new DB51Entities();
+    List<String> lst = new List<string>();
+    foreach (Department d in db.Departments)
+    {
+        lst.Add(d.Name);
+    }
 }
 
 <h2>Create</h2>

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using F1.Models;
 namespace F1.Controllers
 {
     public class RankController : Controller
@@ -28,13 +28,21 @@ namespace F1.Controllers
 
         // POST: Rank/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(rankViewModel model)
         {
             try
             {
                 // TODO: Add insert logic here
+                DB51Entities db = new DB51Entities();
+                Rank r = new Rank();
+                r.Name = model.RName;
+                db.Ranks.Add(r);
+                db.SaveChanges();
 
-                return RedirectToAction("Index");
+
+                return View();
+
+               // return RedirectToAction("Index");
             }
             catch
             {

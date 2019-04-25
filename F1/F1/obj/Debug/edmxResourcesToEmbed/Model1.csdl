@@ -1,0 +1,276 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DB51Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="AppUser">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="roleId" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Role" Relationship="Self.FK_AppUser_Roles" FromRole="AppUser" ToRole="Roles" />
+    <NavigationProperty Name="Employees" Relationship="Self.FK_Employee_AppUser" FromRole="AppUser" ToRole="Employee" />
+  </EntityType>
+  <EntityType Name="Company">
+    <Key>
+      <PropertyRef Name="Code" />
+    </Key>
+    <Property Name="Code" Type="Int64" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PostalCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PhoneNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Fax" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Logo" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Url" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Department">
+    <Key>
+      <PropertyRef Name="depId" />
+    </Key>
+    <Property Name="depId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Employees" Relationship="Self.FK_Employee_Department" FromRole="Department" ToRole="Employee" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="empId" />
+    </Key>
+    <Property Name="empId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DateofBirth" Type="DateTime" Precision="0" />
+    <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Province" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Salary" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Gender" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+    <Property Name="Status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="Rank" Type="Int32" />
+    <Property Name="Type" Type="Int64" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DepId" Type="Int64" />
+    <Property Name="DateofJoining" Type="DateTime" Precision="0" />
+    <Property Name="DateContractEnd" Type="DateTime" Precision="0" />
+    <Property Name="Cnic" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="userID" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="AppUser" Relationship="Self.FK_Employee_AppUser" FromRole="Employee" ToRole="AppUser" />
+    <NavigationProperty Name="Department" Relationship="Self.FK_Employee_Department" FromRole="Employee" ToRole="Department" />
+    <NavigationProperty Name="Lookup" Relationship="Self.FK_Employee_Lookup" FromRole="Employee" ToRole="Lookup" />
+    <NavigationProperty Name="Rank1" Relationship="Self.FK_Employee_Ranks" FromRole="Employee" ToRole="Ranks" />
+    <NavigationProperty Name="Loans" Relationship="Self.FK_Loan_Employee" FromRole="Employee" ToRole="Loan" />
+  </EntityType>
+  <EntityType Name="Installment">
+    <Key>
+      <PropertyRef Name="loanId" />
+      <PropertyRef Name="installmentNo" />
+    </Key>
+    <Property Name="loanId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="installmentNo" Type="Int64" Nullable="false" />
+    <Property Name="dueDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="remarks" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="installmentAmount" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Loan" Relationship="Self.FK_Installments_Loan" FromRole="Installments" ToRole="Loan" />
+    <NavigationProperty Name="Payments" Relationship="Self.FK_Payments_Installments" FromRole="Installments" ToRole="Payments" />
+  </EntityType>
+  <EntityType Name="Loan">
+    <Key>
+      <PropertyRef Name="loanId" />
+    </Key>
+    <Property Name="loanId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="requestDate" Type="DateTime" Precision="0" />
+    <Property Name="requestAmount" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="approvalDate" Type="DateTime" Precision="0" />
+    <Property Name="loanStartDate" Type="DateTime" Precision="0" />
+    <Property Name="loanAmount" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="empId" Type="Int64" Nullable="false" />
+    <Property Name="noOfInsatllments" Type="Int32" Nullable="false" />
+    <Property Name="loanStatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="remarks" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_Loan_Employee" FromRole="Loan" ToRole="Employee" />
+    <NavigationProperty Name="Installments" Relationship="Self.FK_Installments_Loan" FromRole="Loan" ToRole="Installments" />
+  </EntityType>
+  <EntityType Name="Lookup">
+    <Key>
+      <PropertyRef Name="typeId" />
+    </Key>
+    <Property Name="typeId" Type="Int64" Nullable="false" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Employees" Relationship="Self.FK_Employee_Lookup" FromRole="Lookup" ToRole="Employee" />
+  </EntityType>
+  <EntityType Name="Payment">
+    <Key>
+      <PropertyRef Name="paymetId" />
+    </Key>
+    <Property Name="paymetId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="loanId" Type="Int64" Nullable="false" />
+    <Property Name="installmentNo" Type="Int64" Nullable="false" />
+    <Property Name="amountRecieved" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="remarks" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Installment" Relationship="Self.FK_Payments_Installments" FromRole="Payments" ToRole="Installments" />
+  </EntityType>
+  <EntityType Name="Rank">
+    <Key>
+      <PropertyRef Name="rankId" />
+    </Key>
+    <Property Name="rankId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Employees" Relationship="Self.FK_Employee_Ranks" FromRole="Ranks" ToRole="Employee" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="roleId" />
+    </Key>
+    <Property Name="roleId" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="roleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="roleDescription" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+    <Property Name="status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="AppUsers" Relationship="Self.FK_AppUser_Roles" FromRole="Roles" ToRole="AppUser" />
+  </EntityType>
+  <Association Name="FK_AppUser_Roles">
+    <End Role="Roles" Type="Self.Role" Multiplicity="1" />
+    <End Role="AppUser" Type="Self.AppUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="roleId" />
+      </Principal>
+      <Dependent Role="AppUser">
+        <PropertyRef Name="roleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employee_AppUser">
+    <End Role="AppUser" Type="Self.AppUser" Multiplicity="0..1" />
+    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppUser">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employee_Department">
+    <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="depId" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="DepId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employee_Lookup">
+    <End Role="Lookup" Type="Self.Lookup" Multiplicity="0..1" />
+    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lookup">
+        <PropertyRef Name="typeId" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="Type" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employee_Ranks">
+    <End Role="Ranks" Type="Self.Rank" Multiplicity="0..1" />
+    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ranks">
+        <PropertyRef Name="rankId" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="Rank" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Loan_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="Loan" Type="Self.Loan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="empId" />
+      </Principal>
+      <Dependent Role="Loan">
+        <PropertyRef Name="empId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Installments_Loan">
+    <End Role="Loan" Type="Self.Loan" Multiplicity="1" />
+    <End Role="Installments" Type="Self.Installment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Loan">
+        <PropertyRef Name="loanId" />
+      </Principal>
+      <Dependent Role="Installments">
+        <PropertyRef Name="loanId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Payments_Installments">
+    <End Role="Installments" Type="Self.Installment" Multiplicity="1" />
+    <End Role="Payments" Type="Self.Payment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Installments">
+        <PropertyRef Name="loanId" />
+        <PropertyRef Name="installmentNo" />
+      </Principal>
+      <Dependent Role="Payments">
+        <PropertyRef Name="loanId" />
+        <PropertyRef Name="installmentNo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DB51Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AppUsers" EntityType="Self.AppUser" />
+    <EntitySet Name="Companies" EntityType="Self.Company" />
+    <EntitySet Name="Departments" EntityType="Self.Department" />
+    <EntitySet Name="Employees" EntityType="Self.Employee" />
+    <EntitySet Name="Installments" EntityType="Self.Installment" />
+    <EntitySet Name="Loans" EntityType="Self.Loan" />
+    <EntitySet Name="Lookups" EntityType="Self.Lookup" />
+    <EntitySet Name="Payments" EntityType="Self.Payment" />
+    <EntitySet Name="Ranks" EntityType="Self.Rank" />
+    <EntitySet Name="Roles" EntityType="Self.Role" />
+    <AssociationSet Name="FK_AppUser_Roles" Association="Self.FK_AppUser_Roles">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="AppUser" EntitySet="AppUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employee_AppUser" Association="Self.FK_Employee_AppUser">
+      <End Role="AppUser" EntitySet="AppUsers" />
+      <End Role="Employee" EntitySet="Employees" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employee_Department" Association="Self.FK_Employee_Department">
+      <End Role="Department" EntitySet="Departments" />
+      <End Role="Employee" EntitySet="Employees" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employee_Lookup" Association="Self.FK_Employee_Lookup">
+      <End Role="Lookup" EntitySet="Lookups" />
+      <End Role="Employee" EntitySet="Employees" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employee_Ranks" Association="Self.FK_Employee_Ranks">
+      <End Role="Ranks" EntitySet="Ranks" />
+      <End Role="Employee" EntitySet="Employees" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Loan_Employee" Association="Self.FK_Loan_Employee">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="Loan" EntitySet="Loans" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Installments_Loan" Association="Self.FK_Installments_Loan">
+      <End Role="Loan" EntitySet="Loans" />
+      <End Role="Installments" EntitySet="Installments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Payments_Installments" Association="Self.FK_Payments_Installments">
+      <End Role="Installments" EntitySet="Installments" />
+      <End Role="Payments" EntitySet="Payments" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

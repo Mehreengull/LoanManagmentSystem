@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using F1.Models;
 namespace F1.Controllers
 {
     public class DepartmentController : Controller
@@ -28,13 +28,20 @@ namespace F1.Controllers
 
         // POST: Department/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(DepartmentViewModel model)
         {
             try
             {
                 // TODO: Add insert logic here
+                Department d = new Department();
+                DB51Entities db = new DB51Entities();
+                d.Name = model.DName;
+                db.Departments.Add(d);
+                db.SaveChanges();
 
-                return RedirectToAction("Index");
+                return View();
+
+                //return RedirectToAction("Index");
             }
             catch
             {
