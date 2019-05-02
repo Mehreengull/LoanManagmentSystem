@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace EMSProj.Controllers
 {
@@ -15,6 +16,10 @@ namespace EMSProj.Controllers
             return View();
         }
 
+
+        // *************************************
+        // COMPANY INFORMATION, EDIT
+        // *************************************
         // Doing Nothing
         public ActionResult UpdateCompanyInfo()
         {
@@ -34,6 +39,7 @@ namespace EMSProj.Controllers
             db.SaveChanges();
             return RedirectToAction("CompaniesList");
         }
+
         [HttpGet]
         // Showing Companies Information
         public ActionResult CompaniesList()
@@ -42,12 +48,14 @@ namespace EMSProj.Controllers
             return View(model);
         }
 
+        //Edit Company Data
         public ActionResult EditCompany(int id)
         {
             var model = db.Companies.SingleOrDefault(c => c.Code == id);
             return View(model);
         }
 
+        // Saving to Model
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EditCompany(int id, Company model)
@@ -66,5 +74,182 @@ namespace EMSProj.Controllers
             db.SaveChanges();
             return RedirectToAction("CompaniesList");
         }
+
+
+        // *************************************
+        // DEPARTMENT INFORMATION, ADD, DELETE, EDIT
+        // *************************************
+        public ActionResult AddDepartment()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddDepartment(Department model)
+        {
+            if (db.Departments.Any(c => c.Name == model.Name))
+            {
+                ModelState.AddModelError("Name", "Name already present!");
+                return View(model);
+            }
+
+            db.Departments.Add(model);
+            db.SaveChanges();
+            return RedirectToAction("DepartmentList");
+        }
+
+        public ActionResult DepartmentList()
+        {
+            var model = db.Departments.ToList();
+            return View(model);
+        }
+
+        public ActionResult EditDepartment(int id)
+        {
+            var model = db.Departments.SingleOrDefault(c => c.depId == id);
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditDepartment(int id, Department model)
+        {
+            var department = db.Departments.Single(c => c.depId == id);
+            department.Name = model.Name;
+            db.SaveChanges();
+            return RedirectToAction("DepartmentList");
+        }
+
+        [HttpGet]
+        public ActionResult DeleteDepartment(int id)
+        {
+            var model = db.Departments.SingleOrDefault(c => c.depId == id);
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteDepartment(int id, Department model)
+        {
+            var department = db.Departments.SingleOrDefault(c => c.depId == id);
+            db.Departments.Remove(department);
+            db.SaveChanges();
+            return RedirectToAction("DepartmentList");
+        }
+
+
+        // *************************************
+        // RANKS INFORMATION, ADD, DELETE, EDIT 
+        // *************************************
+
+        public ActionResult AddRank()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddRank(Rank model)
+        {
+            db.Ranks.Add(model);
+            db.SaveChanges();
+            return RedirectToAction("RankList");
+        }
+
+        public ActionResult RankList()
+        {
+            var model = db.Ranks.ToList();
+            return View(model);
+        }
+
+        public ActionResult EditRank(int id)
+        {
+            var model = db.Ranks.SingleOrDefault(c => c.rankId == id);
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditRank(int id, Rank model)
+        {
+            var rank = db.Ranks.Single(c => c.rankId == id);
+            rank.Name = model.Name;
+            db.SaveChanges();
+            return RedirectToAction("RankList");
+        }
+
+        public ActionResult DeleteRank(int? id)
+        {
+            var model = db.Ranks.SingleOrDefault(c => c.rankId == id);
+            return View(model);
+        }
+
+        [HttpPost, ActionName("DeleteRank")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteRank(int id, Rank model)
+        {
+            var rank = db.Ranks.SingleOrDefault(c => c.rankId == id);
+            db.Ranks.Remove(rank);
+            db.SaveChanges();
+            return RedirectToAction("RankList");
+        }
+
+        // *************************************
+        // EMPLOYEE INFORMATION, ADD, DELETE, EDIT 
+        // *************************************
+
+        public ActionResult AddEmployee()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddEmployee(Employee model)
+        {
+            db.Employees.Add(model);
+            db.SaveChanges();
+            return RedirectToAction("EmployeeList");
+        }
+
+        public ActionResult EmployeeList()
+        {
+            var model = db.Employees.ToList();
+            return View(model);
+        }
+
+        public ActionResult EditEmployee(int id)
+        {
+            var model = db.Employees.SingleOrDefault(c => c.empId == id);
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditEmployee(int id, Employee model)
+        {
+            var rank = db.Employees.Single(c => c.empId == id);
+            //rank. = model.Name;
+            db.SaveChanges();
+            return RedirectToAction("RankList");
+        }
+
+        public ActionResult DeleteEmployee(int? id)
+        {
+            var model = db.Employees.SingleOrDefault(c => c.empId == id);
+            return View(model);
+        }
+
+        [HttpPost, ActionName("DeleteEmployee")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteEmployee(int id, Rank model)
+        {
+            var emp = db.Employees.SingleOrDefault(c => c.empId == id);
+            db.Employees.Remove(emp);
+            db.SaveChanges();
+            return RedirectToAction("EmployeeList");
+        }
+
     }
 }

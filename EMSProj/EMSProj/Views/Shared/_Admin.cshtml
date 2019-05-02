@@ -43,16 +43,16 @@
             <p style="text-align:center;"> MANAGE </p>
             <hr>
             <li>@Html.ActionLink("COMPNAY", "CompaniesList", "Admin")</li>
-            <li><a href="Q1-BlockLevel.html" target="search_iframe">EMPLOYEE</a></li>
-            <li><a href="Q5-Canvas.html" target="search_iframe">DEPARTMENT</a></li>
-            <li><a href="Q2-FormElements.html" target="search_iframe">RANKS</a></li>
+            <li>@Html.ActionLink("EMPLOYEE", "EmployeeList", "Admin")</li>
+            <li>@Html.ActionLink("DEPARTMENT", "DepartmentList", "Admin")</li>
+            <li>@Html.ActionLink("RANKS", "RankList", "Admin")</li>
             <li><a href="IframeTag.html" target="search_iframe">LOAN</a></li>
             <li><a href="Q1-InlineElements.html" target="search_iframe">INSTALLMENTS</a></li>
             <li><a href="Q3-MouseEvents.html" target="search_iframe">PAYMENTS</a></li>
         </ul>
     </div>
 
-    <div style="width:73%; margin-left:25%;padding:1px 16px;height:1000px; border: none;">
+    <div id="roundcorners" style="width:73%; margin-left:25%;padding:1px 16px;height:1000px; border: none;">
         @RenderBody()
     </div>
 
