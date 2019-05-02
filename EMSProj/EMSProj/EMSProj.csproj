@@ -186,7 +186,6 @@
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="C__MigrationHistory.cs">
@@ -334,23 +333,6 @@
     <Content Include="Views\Admin\CreateCompany.cshtml" />
     <Content Include="Views\Admin\CompaniesList.cshtml" />
     <Content Include="Views\Admin\EditCompany.cshtml" />
-    <Content Include="Views\Admin\AddDepartment.cshtml" />
-    <Content Include="Views\Admin\DepartmentList.cshtml" />
-    <Content Include="Views\Admin\EditDepartment.cshtml" />
-    <Content Include="Views\Admin\DeleteDepartment.cshtml" />
-    <Content Include="Views\Admin\AddRank.cshtml" />
-    <Content Include="Views\Admin\RankList.cshtml" />
-    <Content Include="Views\Admin\EditRank.cshtml" />
-    <Content Include="Views\Admin\DeleteRank.cshtml" />
-    <Content Include="Views\Admin\AddEmployee.cshtml" />
-    <Content Include="Views\Admin\EmployeeList.cshtml" />
-    <Content Include="Views\Shared\_Employee.cshtml" />
-    <Content Include="Views\Admin\AddLoan.cshtml" />
-    <Content Include="Views\Admin\LoanList.cshtml" />
-    <Content Include="Views\Admin\EditLoan.cshtml" />
-    <Content Include="Views\Admin\DeleteLoan.cshtml" />
-    <Content Include="Views\Employee\Index.cshtml" />
-    <Content Include="Views\Employee\LoanStatus.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
