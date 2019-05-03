@@ -15,11 +15,13 @@ namespace EMSProj.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        private DB51Entities1 db;
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
         public AccountController()
         {
+            db = new DB51Entities1();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -73,13 +75,34 @@ namespace EMSProj.Controllers
                 return View(model);
             }
 
+            if(Convert.ToBoolean(SignInStatus.Success))
+            {
+                return RedirectToAction("Index","Admin");
+            }
+
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    var user = await UserManager.FindAsync(model.Email, model.Password);
+                    if (UserManager.IsInRole(user.Id, "Admin"))
+                    {
+                        return RedirectToAction("Index", "Admin");
+                    }
+
+                    else if (UserManager.IsInRole(user.Id, "Employee"))
+                    {
+                        
+                        return RedirectToAction("Index", "Employee");
+
+                    }
+                    else
+                    {
+                        return RedirectToLocal(returnUrl);
+                    }
+                    
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -151,19 +174,33 @@ namespace EMSProj.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, UserRole = model.UserRole };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    await UserManager.AddToRoleAsync(user.Id, model.UserRole);
 
-                    return RedirectToAction("Index", "Home");
+                   
+                    if (UserManager.IsInRole(user.Id, "Admin"))
+                    {
+                        return RedirectToAction("Index", "Admin");
+                    }
+
+                    else
+                    {
+
+                        return RedirectToAction("Index", "Employee");
+
+                    }
+                   
+                   
                 }
                 AddErrors(result);
             }
@@ -392,7 +429,7 @@ namespace EMSProj.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
 
         //

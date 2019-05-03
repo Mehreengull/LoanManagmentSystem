@@ -229,10 +229,12 @@ namespace EMSProj.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditEmployee(int id, Employee model)
         {
-            var rank = db.Employees.Single(c => c.empId == id);
-            //rank. = model.Name;
+            var emp = db.Employees.Single(c => c.empId == id);
+            emp.FirstName = model.FirstName;
+            emp.LastName = model.LastName;
+            
             db.SaveChanges();
-            return RedirectToAction("RankList");
+            return RedirectToAction("EmployeeList");
         }
 
         public ActionResult DeleteEmployee(int? id)
