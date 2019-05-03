@@ -251,5 +251,64 @@ namespace EMSProj.Controllers
             return RedirectToAction("EmployeeList");
         }
 
+        // *************************************
+        // LOAN INFORMATION, ADD, DELETE, EDIT 
+        // *************************************
+        //For Employee
+        public ActionResult AddLoan()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddLoan(Loan model)
+        {
+            db.Loans.Add(model);
+            db.SaveChanges();
+            return RedirectToAction("LoanList");
+        }
+
+        //For Admin
+        public ActionResult LoanList()
+        {
+            var model = db.Loans.ToList();
+            return View(model);
+        }
+
+        //For Admin
+        public ActionResult EditLoan(int id)
+        {
+            var model = db.Loans.SingleOrDefault(c => c.loanId == id);
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditLoan(int id, Loan model)
+        {
+            var loan = db.Loans.Single(c => c.loanId == id);
+            //rank. = model.Name;
+            db.SaveChanges();
+            return RedirectToAction("LoanList");
+        }
+
+        // For Admin
+        public ActionResult DeleteLoan(int? id)
+        {
+            var model = db.Loans.SingleOrDefault(c => c.loanId == id);
+            return View(model);
+        }
+
+        [HttpPost, ActionName("DeleteLoan")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteLoan(int id, Rank model)
+        {
+            var emp = db.Loans.SingleOrDefault(c => c.loanId == id);
+            db.Loans.Remove(emp);
+            db.SaveChanges();
+            return RedirectToAction("LoanList");
+        }
+
     }
 }
