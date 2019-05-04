@@ -1,0 +1,74 @@
+﻿h2 {
+    background: #555555;
+    color: white;
+    text-align: center;
+    padding: 5px;
+}
+
+div {
+    display: inline-block;
+}
+
+#right {
+    float: right;
+}
+
+#left {
+    float: left;
+    width: 80%;
+}
+
+#content {
+    clear: right;
+}
+
+h3 {
+    width: 300px;
+}
+
+body {
+    margin-top: 4px;
+}
+
+pre {
+    background: #f4f4f4;
+    border: 1px solid #ddd;
+    border-left: 3px solid #f36d33;
+    color: #666;
+    page-break-inside: avoid;
+    font-family: monospace;
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 1.6em;
+    max-width: 100%;
+    overflow: auto;
+    padding: 1em 1.5em;
+    display: block;
+    word-wrap: break-word;
+}
+
+
+#coloring {
+    background: #96F4F7;
+}
+
+h5 {
+    padding: 5px;
+}
+
+
+.implementation {
+    border: 1px solid green;
+    padding: 10px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.result {
+    padding: 0;
+    margin-left: 20px;
+}
+
+table, th, td {
+    border: 1px solid black;
+}

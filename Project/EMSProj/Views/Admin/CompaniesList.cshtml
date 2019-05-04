@@ -1,0 +1,68 @@
+﻿@model IEnumerable<EMSProj.Company>
+
+@{
+    ViewBag.Title = "CompaniesList";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h2>Company Information</h2>
+
+
+<div style="margin:0;width:100%;border:2px solid Green;">
+    <p style="text-align:center;">
+        <div class="navbar-brand align-center" style="margin:auto;width:100%">
+            <img src="~/Content/Pics/Logo.png" class="center-image" style="margin-left: auto; margin-right: auto; width:100px" alt="Linosis">
+        </div>
+    </p>
+    <hr style="align-content:center;width:150px;" />
+    <div style="width:45%;float:left">
+        <p style="text-align:right;">
+
+            @Html.DisplayNameFor(model => model.Name) :
+            <br />
+            @Html.DisplayNameFor(model => model.PostalCode) :
+            <br />
+            @Html.DisplayNameFor(model => model.PhoneNo) :
+            <br />
+            @Html.DisplayNameFor(model => model.Fax) :
+            <br />
+            @Html.DisplayNameFor(model => model.Email) :
+            <br />
+            @Html.DisplayNameFor(model => model.Url) :
+            <br />
+        </p>
+    </div>
+    <div style="width:50%;float:right;">
+        <p style="text-align:left;">
+            @foreach (var item in Model)
+            {
+            <b>
+                <span style="display:none">
+                    @Html.DisplayFor(modelItem => item.Code)
+                </span>
+               
+
+                @Html.DisplayFor(modelItem => item.Name)
+                <br />
+                @Html.DisplayFor(modelItem => item.PostalCode)
+                <br />
+                @Html.DisplayFor(modelItem => item.PhoneNo)
+                <br />
+                @Html.DisplayFor(modelItem => item.Fax)
+                <br />
+                @Html.DisplayFor(modelItem => item.Email)
+                <br />
+                @Html.DisplayFor(modelItem => item.Url)
+            </b>
+                <br />
+                <br />
+
+                @Html.ActionLink("    EDIT    ", "EditCompany", new { id = item.Code }, new { @class = "btn btn-primary", @style = "width:100px" })
+                <br />
+            }
+        </p>
+    </div>
+
+
+</div>
+

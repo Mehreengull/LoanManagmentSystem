@@ -1,0 +1,71 @@
+﻿@model EMSProj.Loan
+
+@{
+    ViewBag.Title = "Loan Status";
+    Layout = "~/Views/Shared/_Employee.cshtml";
+}
+
+<h2>Loan Status</h2>
+
+<div>
+    <h4>Loan Request</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.empId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.empId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.requestDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.requestDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.requestAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.requestAmount)
+        </dd>
+
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.loanAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.loanAmount)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.loanStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.loanStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.remarks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.remarks)
+        </dd>
+
+    </dl>
+</div>
+
+<p>
+
+</p>

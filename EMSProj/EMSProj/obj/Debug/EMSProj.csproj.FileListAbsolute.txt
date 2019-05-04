@@ -754,3 +754,10 @@ C:\Users\Powersoft\Desktop\Day 7\EMSProj\EMSProj\obj\Debug\EMSProj.csproj.CoreCo
 C:\Users\Powersoft\Desktop\Day 7\EMSProj\EMSProj\obj\Debug\EMSProj.csproj.CopyComplete
 C:\Users\Powersoft\Desktop\Day 7\EMSProj\EMSProj\obj\Debug\EMSProj.dll
 C:\Users\Powersoft\Desktop\Day 7\EMSProj\EMSProj\obj\Debug\EMSProj.pdb
+E:\MEHREEN\CS-06\DB\PROJECT\DB04\EMSProj\EMSProj\obj\Debug\EMSProj.csprojResolveAssemblyReference.cache
+E:\MEHREEN\CS-06\DB\PROJECT\DB04\EMSProj\EMSProj\obj\Debug\EMSProj.Migrations.rollesAdded.resources
+E:\MEHREEN\CS-06\DB\PROJECT\DB04\EMSProj\EMSProj\obj\Debug\EMSProj.Migrations.UserRole.resources
+E:\MEHREEN\CS-06\DB\PROJECT\DB04\EMSProj\EMSProj\obj\Debug\EMSProj.Migrations.empty.resources
+E:\MEHREEN\CS-06\DB\PROJECT\DB04\EMSProj\EMSProj\obj\Debug\EMSProj.csproj.GenerateResource.Cache
+E:\MEHREEN\CS-06\DB\PROJECT\DB04\EMSProj\EMSProj\obj\Debug\EMSProj.dll
+E:\MEHREEN\CS-06\DB\PROJECT\DB04\EMSProj\EMSProj\obj\Debug\EMSProj.pdb

@@ -381,6 +381,35 @@ namespace EMSProj.Controllers
             db.SaveChanges();
             return RedirectToAction("LoanList");
         }
-
+        public ActionResult DepartmentReport()
+        {
+            DB51Entities db = new DB51Entities();
+            var c = db.DepartmentViews.ToList();
+            DepartmentReport rept = new DepartmentReport();
+            rept.Load();
+            rept.SetDataSource(c);
+            Stream s = rept.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+            return File(s, "application/pdf");
+        }
+        public ActionResult RankReport()
+        {
+            DB51Entities db = new DB51Entities();
+            var c = db.rankInfoes.ToList();
+            RankReport rept = new RankReport();
+            rept.Load();
+            rept.SetDataSource(c);
+            Stream s = rept.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+            return File(s, "application/pdf");
+        }
+        public ActionResult InsallmentReport()
+        {
+            DB51Entities db = new DB51Entities();
+            var c = db.InstalmentDetails.ToList();
+            InstalmentReport rept = new InstalmentReport();
+            rept.Load();
+            rept.SetDataSource(c);
+            Stream s = rept.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+            return File(s, "application/pdf");
+        }
     }
 }

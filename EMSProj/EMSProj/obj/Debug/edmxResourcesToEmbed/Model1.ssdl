@@ -1,0 +1,402 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DB51Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AppUser">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="varchar" MaxLength="16" Nullable="false" />
+    <Property Name="UserName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="varchar" MaxLength="256" />
+    <Property Name="Password" Type="varchar" MaxLength="32" Nullable="false" />
+    <Property Name="roleId" Type="varchar" MaxLength="16" Nullable="false" />
+    <Property Name="status" Type="char" MaxLength="1" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Company">
+    <Key>
+      <PropertyRef Name="Code" />
+    </Key>
+    <Property Name="Code" Type="bigint" Nullable="false" />
+    <Property Name="Name" Type="varchar(max)" Nullable="false" />
+    <Property Name="PostalCode" Type="varchar" MaxLength="50" />
+    <Property Name="PhoneNo" Type="varchar" MaxLength="50" />
+    <Property Name="Fax" Type="varchar" MaxLength="50" />
+    <Property Name="Logo" Type="image" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+    <Property Name="Url" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Department">
+    <Key>
+      <PropertyRef Name="depId" />
+    </Key>
+    <Property Name="depId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="empId" />
+    </Key>
+    <Property Name="empId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="varchar" MaxLength="50" />
+    <Property Name="LastName" Type="varchar" MaxLength="50" />
+    <Property Name="DateofBirth" Type="date" />
+    <Property Name="State" Type="varchar" MaxLength="50" />
+    <Property Name="City" Type="varchar" MaxLength="50" />
+    <Property Name="Province" Type="varchar" MaxLength="50" />
+    <Property Name="Salary" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Gender" Type="char" MaxLength="2" />
+    <Property Name="Status" Type="char" MaxLength="1" />
+    <Property Name="Rank" Type="int" />
+    <Property Name="Type" Type="bigint" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+    <Property Name="DepId" Type="bigint" />
+    <Property Name="DateofJoining" Type="date" />
+    <Property Name="DateContractEnd" Type="date" />
+    <Property Name="Cnic" Type="varchar" MaxLength="50" />
+    <Property Name="userID" Type="varchar" MaxLength="16" />
+  </EntityType>
+  <EntityType Name="Installments">
+    <Key>
+      <PropertyRef Name="loanId" />
+      <PropertyRef Name="installmentNo" />
+    </Key>
+    <Property Name="loanId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="installmentNo" Type="bigint" Nullable="false" />
+    <Property Name="dueDate" Type="date" Nullable="false" />
+    <Property Name="remarks" Type="varchar" MaxLength="256" Nullable="false" />
+    <Property Name="installmentAmount" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="status" Type="char" MaxLength="1" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Loan">
+    <Key>
+      <PropertyRef Name="loanId" />
+    </Key>
+    <Property Name="loanId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="requestDate" Type="date" />
+    <Property Name="requestAmount" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="approvalDate" Type="date" />
+    <Property Name="loanStartDate" Type="date" />
+    <Property Name="loanAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="empId" Type="bigint" Nullable="false" />
+    <Property Name="noOfInsatllments" Type="int" Nullable="false" />
+    <Property Name="loanStatus" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="remarks" Type="varchar" MaxLength="256" />
+  </EntityType>
+  <EntityType Name="Lookup">
+    <Key>
+      <PropertyRef Name="typeId" />
+    </Key>
+    <Property Name="typeId" Type="bigint" Nullable="false" />
+    <Property Name="Status" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Payments">
+    <Key>
+      <PropertyRef Name="paymetId" />
+    </Key>
+    <Property Name="paymetId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="loanId" Type="bigint" Nullable="false" />
+    <Property Name="installmentNo" Type="bigint" Nullable="false" />
+    <Property Name="amountRecieved" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="remarks" Type="varchar" MaxLength="256" Nullable="false" />
+    <Property Name="status" Type="char" MaxLength="1" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Ranks">
+    <Key>
+      <PropertyRef Name="rankId" />
+    </Key>
+    <Property Name="rankId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="roleId" />
+    </Key>
+    <Property Name="roleId" Type="varchar" MaxLength="16" Nullable="false" />
+    <Property Name="roleName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="roleDescription" Type="varchar" MaxLength="256" />
+    <Property Name="status" Type="char" MaxLength="1" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'DB51.dbo.DepartmentView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="DepartmentView">
+    <Key>
+      <PropertyRef Name="depId" />
+      <PropertyRef Name="Name" />
+    </Key>
+    <Property Name="depId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'DB51.dbo.ELReport' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ELReport">
+    <Key>
+      <PropertyRef Name="empId" />
+      <PropertyRef Name="loanAmount" />
+      <PropertyRef Name="loanId" />
+      <PropertyRef Name="loanStatus" />
+    </Key>
+    <Property Name="empId" Type="bigint" Nullable="false" />
+    <Property Name="loanAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="loanId" Type="bigint" Nullable="false" />
+    <Property Name="approvalDate" Type="date" />
+    <Property Name="loanStatus" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+    <Property Name="Cnic" Type="varchar" MaxLength="50" />
+    <Property Name="FirstName" Type="varchar" MaxLength="50" />
+    <Property Name="LastName" Type="varchar" MaxLength="50" />
+    <Property Name="DepId" Type="bigint" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'DB51.dbo.EmployeeReport' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="EmployeeReport">
+    <Key>
+      <PropertyRef Name="empId" />
+    </Key>
+    <Property Name="empId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="varchar" MaxLength="50" />
+    <Property Name="LastName" Type="varchar" MaxLength="50" />
+    <Property Name="DateofBirth" Type="date" />
+    <Property Name="State" Type="varchar" MaxLength="50" />
+    <Property Name="City" Type="varchar" MaxLength="50" />
+    <Property Name="Province" Type="varchar" MaxLength="50" />
+    <Property Name="Salary" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Gender" Type="char" MaxLength="2" />
+    <Property Name="Status" Type="char" MaxLength="1" />
+    <Property Name="Rank" Type="int" />
+    <Property Name="Type" Type="bigint" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+    <Property Name="DepId" Type="bigint" />
+    <Property Name="DateofJoining" Type="date" />
+    <Property Name="DateContractEnd" Type="date" />
+    <Property Name="Cnic" Type="varchar" MaxLength="50" />
+    <Property Name="userID" Type="varchar" MaxLength="16" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'DB51.dbo.InstalmentDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="InstalmentDetails">
+    <Key>
+      <PropertyRef Name="loanId" />
+      <PropertyRef Name="installmentNo" />
+      <PropertyRef Name="dueDate" />
+      <PropertyRef Name="remarks" />
+      <PropertyRef Name="installmentAmount" />
+      <PropertyRef Name="status" />
+    </Key>
+    <Property Name="loanId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="installmentNo" Type="bigint" Nullable="false" />
+    <Property Name="dueDate" Type="date" Nullable="false" />
+    <Property Name="remarks" Type="varchar" MaxLength="256" Nullable="false" />
+    <Property Name="installmentAmount" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="status" Type="char" MaxLength="1" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'DB51.dbo.rankInfo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="rankInfo">
+    <Key>
+      <PropertyRef Name="rankId" />
+      <PropertyRef Name="Name" />
+    </Key>
+    <Property Name="rankId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_AppUser_Roles">
+    <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+    <End Role="AppUser" Type="Self.AppUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="roleId" />
+      </Principal>
+      <Dependent Role="AppUser">
+        <PropertyRef Name="roleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employee_AppUser">
+    <End Role="AppUser" Type="Self.AppUser" Multiplicity="0..1" />
+    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AppUser">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employee_Department">
+    <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="depId" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="DepId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employee_Lookup">
+    <End Role="Lookup" Type="Self.Lookup" Multiplicity="0..1" />
+    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lookup">
+        <PropertyRef Name="typeId" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="Type" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employee_Ranks">
+    <End Role="Ranks" Type="Self.Ranks" Multiplicity="0..1" />
+    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ranks">
+        <PropertyRef Name="rankId" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="Rank" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Installments_Loan">
+    <End Role="Loan" Type="Self.Loan" Multiplicity="1" />
+    <End Role="Installments" Type="Self.Installments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Loan">
+        <PropertyRef Name="loanId" />
+      </Principal>
+      <Dependent Role="Installments">
+        <PropertyRef Name="loanId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Loan_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="Loan" Type="Self.Loan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="empId" />
+      </Principal>
+      <Dependent Role="Loan">
+        <PropertyRef Name="empId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Payments_Installments">
+    <End Role="Installments" Type="Self.Installments" Multiplicity="1" />
+    <End Role="Payments" Type="Self.Payments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Installments">
+        <PropertyRef Name="loanId" />
+        <PropertyRef Name="installmentNo" />
+      </Principal>
+      <Dependent Role="Payments">
+        <PropertyRef Name="loanId" />
+        <PropertyRef Name="installmentNo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="EmployeeLoanReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="DB51ModelStoreContainer">
+    <EntitySet Name="AppUser" EntityType="Self.AppUser" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Installments" EntityType="Self.Installments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Loan" EntityType="Self.Loan" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Lookup" EntityType="Self.Lookup" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Payments" EntityType="Self.Payments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Ranks" EntityType="Self.Ranks" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DepartmentView" EntityType="Self.DepartmentView" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [DepartmentView].[depId] AS [depId], 
+    [DepartmentView].[Name] AS [Name]
+    FROM [dbo].[DepartmentView] AS [DepartmentView]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ELReport" EntityType="Self.ELReport" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ELReport].[empId] AS [empId], 
+    [ELReport].[loanAmount] AS [loanAmount], 
+    [ELReport].[loanId] AS [loanId], 
+    [ELReport].[approvalDate] AS [approvalDate], 
+    [ELReport].[loanStatus] AS [loanStatus], 
+    [ELReport].[Email] AS [Email], 
+    [ELReport].[Cnic] AS [Cnic], 
+    [ELReport].[FirstName] AS [FirstName], 
+    [ELReport].[LastName] AS [LastName], 
+    [ELReport].[DepId] AS [DepId]
+    FROM [dbo].[ELReport] AS [ELReport]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="EmployeeReport" EntityType="Self.EmployeeReport" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [EmployeeReport].[empId] AS [empId], 
+    [EmployeeReport].[FirstName] AS [FirstName], 
+    [EmployeeReport].[LastName] AS [LastName], 
+    [EmployeeReport].[DateofBirth] AS [DateofBirth], 
+    [EmployeeReport].[State] AS [State], 
+    [EmployeeReport].[City] AS [City], 
+    [EmployeeReport].[Province] AS [Province], 
+    [EmployeeReport].[Salary] AS [Salary], 
+    [EmployeeReport].[Gender] AS [Gender], 
+    [EmployeeReport].[Status] AS [Status], 
+    [EmployeeReport].[Rank] AS [Rank], 
+    [EmployeeReport].[Type] AS [Type], 
+    [EmployeeReport].[Email] AS [Email], 
+    [EmployeeReport].[DepId] AS [DepId], 
+    [EmployeeReport].[DateofJoining] AS [DateofJoining], 
+    [EmployeeReport].[DateContractEnd] AS [DateContractEnd], 
+    [EmployeeReport].[Cnic] AS [Cnic], 
+    [EmployeeReport].[userID] AS [userID]
+    FROM [dbo].[EmployeeReport] AS [EmployeeReport]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="InstalmentDetails" EntityType="Self.InstalmentDetails" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [InstalmentDetails].[loanId] AS [loanId], 
+    [InstalmentDetails].[installmentNo] AS [installmentNo], 
+    [InstalmentDetails].[dueDate] AS [dueDate], 
+    [InstalmentDetails].[remarks] AS [remarks], 
+    [InstalmentDetails].[installmentAmount] AS [installmentAmount], 
+    [InstalmentDetails].[status] AS [status]
+    FROM [dbo].[InstalmentDetails] AS [InstalmentDetails]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="rankInfo" EntityType="Self.rankInfo" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [rankInfo].[rankId] AS [rankId], 
+    [rankInfo].[Name] AS [Name]
+    FROM [dbo].[rankInfo] AS [rankInfo]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_AppUser_Roles" Association="Self.FK_AppUser_Roles">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="AppUser" EntitySet="AppUser" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employee_AppUser" Association="Self.FK_Employee_AppUser">
+      <End Role="AppUser" EntitySet="AppUser" />
+      <End Role="Employee" EntitySet="Employee" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employee_Department" Association="Self.FK_Employee_Department">
+      <End Role="Department" EntitySet="Department" />
+      <End Role="Employee" EntitySet="Employee" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employee_Lookup" Association="Self.FK_Employee_Lookup">
+      <End Role="Lookup" EntitySet="Lookup" />
+      <End Role="Employee" EntitySet="Employee" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employee_Ranks" Association="Self.FK_Employee_Ranks">
+      <End Role="Ranks" EntitySet="Ranks" />
+      <End Role="Employee" EntitySet="Employee" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Installments_Loan" Association="Self.FK_Installments_Loan">
+      <End Role="Loan" EntitySet="Loan" />
+      <End Role="Installments" EntitySet="Installments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Loan_Employee" Association="Self.FK_Loan_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Loan" EntitySet="Loan" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Payments_Installments" Association="Self.FK_Payments_Installments">
+      <End Role="Installments" EntitySet="Installments" />
+      <End Role="Payments" EntitySet="Payments" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
