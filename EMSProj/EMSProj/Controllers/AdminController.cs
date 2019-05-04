@@ -280,8 +280,11 @@ namespace EMSProj.Controllers
 
         public ActionResult EditEmployee(int id)
         {
-            var model = db.Employees.SingleOrDefault(c => c.empId == id);
-            return View(model);
+            var collection = new EmployeeCollectionViewModel
+            {              
+                Employee = db.Employees.SingleOrDefault(c => c.empId == id),
+            };
+            return View(collection);
         }
 
         [HttpPost]

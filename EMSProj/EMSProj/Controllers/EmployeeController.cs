@@ -58,7 +58,26 @@ namespace EMSProj.Controllers
 
 
         }
+        public ActionResult EditEmployee (int id)
+        {
+            var model = db.Employees.SingleOrDefault(c => c.empId == id);
+            return View(model); 
+        }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditEmployee(int id, Employee model)
+        {
+            var employee = db.Employees.Single(c => c.empId == id);
+            employee.State = model.State;
+            employee.City = model.City;
+            employee.DateofBirth = (model.DateofBirth);
+            employee.Province = model.Province;
+            employee.Cnic = model.Cnic;
+
+            db.SaveChanges();
+            return RedirectToAction("index");
+        }
         public ActionResult LoanStatus()
         {
             return View();
