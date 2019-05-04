@@ -15,7 +15,7 @@ namespace EMSProj
     public partial class Payment
     {
         public long paymetId { get; set; }
-        public long loanId { get; set; }
+        public Nullable<long> loanId { get; set; }
         public long installmentNo { get; set; }
         public decimal amountRecieved { get; set; }
         public string remarks { get; set; }

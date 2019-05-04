@@ -13,10 +13,10 @@ namespace EMSProj
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class DB51Entities1 : DbContext
+    public partial class DB51Entities : DbContext
     {
-        public DB51Entities1()
-            : base("name=DB51Entities1")
+        public DB51Entities()
+            : base("name=DB51Entities")
         {
         }
     

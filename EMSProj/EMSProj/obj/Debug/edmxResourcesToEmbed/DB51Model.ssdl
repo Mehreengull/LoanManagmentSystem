@@ -60,6 +60,7 @@
     <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
     <Property Name="AccessFailedCount" Type="int" Nullable="false" />
     <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="UserRole" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="Company">
     <Key>
@@ -106,10 +107,10 @@
   </EntityType>
   <EntityType Name="Installments">
     <Key>
-      <PropertyRef Name="loanId" />
-      <PropertyRef Name="installmentNo" />
+      <PropertyRef Name="Id" />
     </Key>
-    <Property Name="loanId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="loanId" Type="bigint" Nullable="false" />
     <Property Name="installmentNo" Type="bigint" Nullable="false" />
     <Property Name="dueDate" Type="date" Nullable="false" />
     <Property Name="remarks" Type="varchar" MaxLength="256" Nullable="false" />
@@ -143,7 +144,7 @@
       <PropertyRef Name="paymetId" />
     </Key>
     <Property Name="paymetId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="loanId" Type="bigint" Nullable="false" />
+    <Property Name="loanId" Type="bigint" />
     <Property Name="installmentNo" Type="bigint" Nullable="false" />
     <Property Name="amountRecieved" Type="decimal" Precision="18" Scale="0" Nullable="false" />
     <Property Name="remarks" Type="varchar" MaxLength="256" Nullable="false" />
@@ -246,18 +247,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Employee_Loan">
-    <End Role="Loan" Type="Self.Loan" Multiplicity="1" />
-    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="Loan">
-        <PropertyRef Name="loanId" />
-      </Principal>
-      <Dependent Role="Employee">
-        <PropertyRef Name="empId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Employee_Lookup">
     <End Role="Lookup" Type="Self.Lookup" Multiplicity="0..1" />
     <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
@@ -294,16 +283,26 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Loan_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="Loan" Type="Self.Loan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="empId" />
+      </Principal>
+      <Dependent Role="Loan">
+        <PropertyRef Name="empId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Payments_Installments">
     <End Role="Installments" Type="Self.Installments" Multiplicity="1" />
     <End Role="Payments" Type="Self.Payments" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Installments">
-        <PropertyRef Name="loanId" />
-        <PropertyRef Name="installmentNo" />
+        <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="Payments">
-        <PropertyRef Name="loanId" />
         <PropertyRef Name="installmentNo" />
       </Dependent>
     </ReferentialConstraint>
@@ -348,10 +347,6 @@
       <End Role="Department" EntitySet="Department" />
       <End Role="Employee" EntitySet="Employee" />
     </AssociationSet>
-    <AssociationSet Name="FK_Employee_Loan" Association="Self.FK_Employee_Loan">
-      <End Role="Loan" EntitySet="Loan" />
-      <End Role="Employee" EntitySet="Employee" />
-    </AssociationSet>
     <AssociationSet Name="FK_Employee_Lookup" Association="Self.FK_Employee_Lookup">
       <End Role="Lookup" EntitySet="Lookup" />
       <End Role="Employee" EntitySet="Employee" />
@@ -363,6 +358,10 @@
     <AssociationSet Name="FK_Installments_Loan" Association="Self.FK_Installments_Loan">
       <End Role="Loan" EntitySet="Loan" />
       <End Role="Installments" EntitySet="Installments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Loan_Employee" Association="Self.FK_Loan_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Loan" EntitySet="Loan" />
     </AssociationSet>
     <AssociationSet Name="FK_Payments_Installments" Association="Self.FK_Payments_Installments">
       <End Role="Installments" EntitySet="Installments" />

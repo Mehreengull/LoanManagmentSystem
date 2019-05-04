@@ -1,16 +1,34 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity.Owin;
+using EMSProj.CollectionViewModels;
+using EMSProj.Models;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using System.Data.Entity;
+using Microsoft.AspNet.Identity;
 
 namespace EMSProj.Controllers
 {
     public class AdminController : Controller
     {
         // GET: Admin
-        DB51Entities1 db = new DB51Entities1();
+        DB51Entities db = new DB51Entities();
+        private ApplicationUserManager _userManager;
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+
         public ActionResult Index()
         {
             return View();
@@ -201,16 +219,57 @@ namespace EMSProj.Controllers
 
         public ActionResult AddEmployee()
         {
-            return View();
+            var collection = new EmployeeCollectionViewModel
+            {
+                ApplicationUser = new RegisterViewModel(),
+                Employee = new Employee(),
+                Departments = db.Departments.ToList(),
+                Ranks = db.Ranks.ToList(),
+                Lookups = db.Lookups.ToList()
+
+            };
+            return View(collection);
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult AddEmployee(Employee model)
+        public async Task<ActionResult> AddEmployee(EmployeeCollectionViewModel model)
         {
-            db.Employees.Add(model);
-            db.SaveChanges();
-            return RedirectToAction("EmployeeList");
+            var user = new ApplicationUser
+            {
+                UserName = model.ApplicationUser.UserName,
+                Email = model.ApplicationUser.Email,
+                UserRole = "Employee",
+            };
+            var result = await UserManager.CreateAsync(user, model.ApplicationUser.Password).ConfigureAwait(false);
+            if (result.Succeeded)
+            {
+                await UserManager.AddToRoleAsync(user.Id, "Employee").ConfigureAwait(false);
+                var rank = db.Ranks.Where(c => c.rankId == model.RankId).SingleOrDefault();
+                var depart = db.Departments.Where(c => c.depId == model.DepartmentId).SingleOrDefault();
+                var employee = new Employee
+                {
+                    FirstName = model.Employee.FirstName,
+                    LastName = model.Employee.LastName,
+                    Cnic = model.Employee.Cnic,
+                    Status = model.Employee.Status,
+                    DateofJoining = DateTime.Now,
+                    Email = model.ApplicationUser.Email,
+                    DepId = model.DepartmentId,
+                    Rank = model.DepartmentId,
+                    UserId = user.Id
+                    
+                };
+                
+                
+                db.Employees.Add(employee);
+                db.SaveChanges();
+                return RedirectToAction("EmployeeList");
+            }
+
+
+            return HttpNotFound();
         }
 
         public ActionResult EmployeeList()

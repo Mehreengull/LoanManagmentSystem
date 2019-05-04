@@ -1,163 +1,125 @@
-﻿@model EMSProj.Employee
+﻿@model EMSProj.CollectionViewModels.CollectionofAll
 
 @{
-    ViewBag.Title = "Employee Information";
+    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Employee.cshtml";
 }
 
-<h2>Employee</h2>
+<h2>My Information</h2>
 
 <div>
-    <h4>My Information</h4>
+    <h4>Information</h4>
     <hr />
     <dl class="dl-horizontal">
+        
+
         <dt>
-            @Html.DisplayNameFor(model => model.empId)
+            Name : 
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.empId)
+            @Html.DisplayFor(model => model.Employee.FirstName) @Html.DisplayFor(model => model.Employee.LastName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.FirstName)
+            Date of Birth
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.FirstName)
+            @Html.DisplayFor(model => model.Employee.DateofBirth)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.LastName)
+            @Html.DisplayNameFor(model => model.Employee.State)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.LastName)
+            @Html.DisplayFor(model => model.Employee.State)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.DateofBirth)
+            @Html.DisplayNameFor(model => model.Employee.City)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.DateofBirth)
+            @Html.DisplayFor(model => model.Employee.City)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.State)
+            @Html.DisplayNameFor(model => model.Employee.Province)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.State)
+            @Html.DisplayFor(model => model.Employee.Province)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.City)
+            @Html.DisplayNameFor(model => model.Employee.Salary)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.City)
+            @Html.DisplayFor(model => model.Employee.Salary)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Province)
+            @Html.DisplayNameFor(model => model.Employee.Gender)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Province)
+            @Html.DisplayFor(model => model.Employee.Gender)
+        </dd>
+
+       
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Employee.Rank)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rank.Name)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Employee.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Employee.Email)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Salary)
+            Department
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Salary)
+            @Html.DisplayFor(model => model.Department.Name)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Gender)
+            Joining Date
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Gender)
+            @Html.DisplayFor(model => model.Employee.DateofJoining)
         </dd>
+
+        
 
         <dt>
-            @Html.DisplayNameFor(model => model.Status)
+            CNIC
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Status)
+            @Html.DisplayFor(model => model.Employee.Cnic)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Rank)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Rank)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Type)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Type)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DepId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DepId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DateofJoining)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DateofJoining)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DateContractEnd)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DateContractEnd)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Cnic)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Cnic)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UserId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UserId)
-        </dd>
+       
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
+<p style="margin-left:10px;">
+    
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Employee.empId } , new { @class = "btn btn-success" })
+
 </p>

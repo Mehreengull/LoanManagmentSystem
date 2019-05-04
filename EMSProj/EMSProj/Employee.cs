@@ -14,6 +14,12 @@ namespace EMSProj
     
     public partial class Employee
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Employee()
+        {
+            this.Loans = new HashSet<Loan>();
+        }
+    
         public long empId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -35,8 +41,9 @@ namespace EMSProj
     
         public virtual AspNetUser AspNetUser { get; set; }
         public virtual Department Department { get; set; }
-        public virtual Loan Loan { get; set; }
         public virtual Lookup Lookup { get; set; }
         public virtual Rank Rank1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Loan> Loans { get; set; }
     }
 }

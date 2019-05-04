@@ -55,6 +55,7 @@
     <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
     <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
     <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserRole" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
     <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
     <NavigationProperty Name="Employees" Relationship="Self.FK_Employee_AspNetUsers" FromRole="AspNetUsers" ToRole="Employee" />
@@ -105,16 +106,16 @@
     <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="AspNetUser" Relationship="Self.FK_Employee_AspNetUsers" FromRole="Employee" ToRole="AspNetUsers" />
     <NavigationProperty Name="Department" Relationship="Self.FK_Employee_Department" FromRole="Employee" ToRole="Department" />
-    <NavigationProperty Name="Loan" Relationship="Self.FK_Employee_Loan" FromRole="Employee" ToRole="Loan" />
     <NavigationProperty Name="Lookup" Relationship="Self.FK_Employee_Lookup" FromRole="Employee" ToRole="Lookup" />
     <NavigationProperty Name="Rank1" Relationship="Self.FK_Employee_Ranks" FromRole="Employee" ToRole="Ranks" />
+    <NavigationProperty Name="Loans" Relationship="Self.FK_Loan_Employee" FromRole="Employee" ToRole="Loan" />
   </EntityType>
   <EntityType Name="Installment">
     <Key>
-      <PropertyRef Name="loanId" />
-      <PropertyRef Name="installmentNo" />
+      <PropertyRef Name="Id" />
     </Key>
-    <Property Name="loanId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="loanId" Type="Int64" Nullable="false" />
     <Property Name="installmentNo" Type="Int64" Nullable="false" />
     <Property Name="dueDate" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="remarks" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
@@ -137,7 +138,7 @@
     <Property Name="noOfInsatllments" Type="Int32" Nullable="false" />
     <Property Name="loanStatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
     <Property Name="remarks" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="Employee" Relationship="Self.FK_Employee_Loan" FromRole="Loan" ToRole="Employee" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_Loan_Employee" FromRole="Loan" ToRole="Employee" />
     <NavigationProperty Name="Installments" Relationship="Self.FK_Installments_Loan" FromRole="Loan" ToRole="Installments" />
   </EntityType>
   <EntityType Name="Lookup">
@@ -153,7 +154,7 @@
       <PropertyRef Name="paymetId" />
     </Key>
     <Property Name="paymetId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="loanId" Type="Int64" Nullable="false" />
+    <Property Name="loanId" Type="Int64" />
     <Property Name="installmentNo" Type="Int64" Nullable="false" />
     <Property Name="amountRecieved" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
     <Property Name="remarks" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
@@ -230,18 +231,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Employee_Loan">
-    <End Role="Loan" Type="Self.Loan" Multiplicity="1" />
-    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="Loan">
-        <PropertyRef Name="loanId" />
-      </Principal>
-      <Dependent Role="Employee">
-        <PropertyRef Name="empId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Employee_Lookup">
     <End Role="Lookup" Type="Self.Lookup" Multiplicity="0..1" />
     <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
@@ -266,6 +255,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Loan_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="Loan" Type="Self.Loan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="empId" />
+      </Principal>
+      <Dependent Role="Loan">
+        <PropertyRef Name="empId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Installments_Loan">
     <End Role="Loan" Type="Self.Loan" Multiplicity="1" />
     <End Role="Installments" Type="Self.Installment" Multiplicity="*" />
@@ -283,11 +284,9 @@
     <End Role="Payments" Type="Self.Payment" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Installments">
-        <PropertyRef Name="loanId" />
-        <PropertyRef Name="installmentNo" />
+        <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="Payments">
-        <PropertyRef Name="loanId" />
         <PropertyRef Name="installmentNo" />
       </Dependent>
     </ReferentialConstraint>
@@ -296,7 +295,7 @@
     <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
     <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
   </Association>
-  <EntityContainer Name="DB51Entities1" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="DB51Entities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
     <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
     <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
@@ -327,10 +326,6 @@
       <End Role="Department" EntitySet="Departments" />
       <End Role="Employee" EntitySet="Employees" />
     </AssociationSet>
-    <AssociationSet Name="FK_Employee_Loan" Association="Self.FK_Employee_Loan">
-      <End Role="Loan" EntitySet="Loans" />
-      <End Role="Employee" EntitySet="Employees" />
-    </AssociationSet>
     <AssociationSet Name="FK_Employee_Lookup" Association="Self.FK_Employee_Lookup">
       <End Role="Lookup" EntitySet="Lookups" />
       <End Role="Employee" EntitySet="Employees" />
@@ -338,6 +333,10 @@
     <AssociationSet Name="FK_Employee_Ranks" Association="Self.FK_Employee_Ranks">
       <End Role="Ranks" EntitySet="Ranks" />
       <End Role="Employee" EntitySet="Employees" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Loan_Employee" Association="Self.FK_Loan_Employee">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="Loan" EntitySet="Loans" />
     </AssociationSet>
     <AssociationSet Name="FK_Installments_Loan" Association="Self.FK_Installments_Loan">
       <End Role="Loan" EntitySet="Loans" />
