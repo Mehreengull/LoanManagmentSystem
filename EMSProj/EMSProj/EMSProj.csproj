@@ -183,6 +183,7 @@
     </Compile>
     <Compile Include="CollectionViewModels\CollectionofAll.cs" />
     <Compile Include="CollectionViewModels\EmployeeCollectionViewModel.cs" />
+    <Compile Include="CollectionViewModels\EmployeeLoanCollectionViewModel.cs" />
     <Compile Include="Company.cs">
       <DependentUpon>DB51Model.tt</DependentUpon>
     </Compile>
@@ -354,14 +355,17 @@
     <Content Include="Views\Admin\DeleteRank.cshtml" />
     <Content Include="Views\Admin\EmployeeList.cshtml" />
     <Content Include="Views\Shared\_Employee.cshtml" />
-    <Content Include="Views\Admin\AddLoan.cshtml" />
     <Content Include="Views\Admin\LoanList.cshtml" />
     <Content Include="Views\Admin\EditLoan.cshtml" />
     <Content Include="Views\Admin\DeleteLoan.cshtml" />
-    <Content Include="Views\Employee\LoanStatus.cshtml" />
     <Content Include="Views\Admin\AddEmployee.cshtml" />
     <Content Include="Views\Employee\Index.cshtml" />
     <Content Include="Views\Employee\EditEmployee.cshtml" />
+    <Content Include="Views\Admin\EditEmployee.cshtml" />
+    <Content Include="Views\Admin\DeleteEmployee.cshtml" />
+    <Content Include="Views\Employee\AddLoan.cshtml" />
+    <Content Include="Views\Employee\LoanStatus.cshtml" />
+    <Content Include="Views\Employee\LoanList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -280,11 +280,11 @@ namespace EMSProj.Controllers
 
         public ActionResult EditEmployee(int id)
         {
-            var collection = new EmployeeCollectionViewModel
-            {              
-                Employee = db.Employees.SingleOrDefault(c => c.empId == id),
-            };
-            return View(collection);
+
+
+            var Employee = db.Employees.SingleOrDefault(c => c.empId == id);
+            
+            return View(Employee);
         }
 
         [HttpPost]
@@ -294,7 +294,16 @@ namespace EMSProj.Controllers
             var emp = db.Employees.Single(c => c.empId == id);
             emp.FirstName = model.FirstName;
             emp.LastName = model.LastName;
-            
+            emp.State = model.State;
+            emp.City = model.City;
+            emp.DateofBirth = (model.DateofBirth);
+            emp.Salary = model.Salary;
+            emp.DepId = model.DepId;
+            emp.Rank = model.Rank;
+
+            emp.Province = model.Province;
+            emp.Cnic = model.Cnic;
+
             db.SaveChanges();
             return RedirectToAction("EmployeeList");
         }
@@ -319,19 +328,7 @@ namespace EMSProj.Controllers
         // LOAN INFORMATION, ADD, DELETE, EDIT 
         // *************************************
         //For Employee
-        public ActionResult AddLoan()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult AddLoan(Loan model)
-        {
-            db.Loans.Add(model);
-            db.SaveChanges();
-            return RedirectToAction("LoanList");
-        }
+        
 
         //For Admin
         public ActionResult LoanList()
@@ -352,7 +349,18 @@ namespace EMSProj.Controllers
         public ActionResult EditLoan(int id, Loan model)
         {
             var loan = db.Loans.Single(c => c.loanId == id);
-            //rank. = model.Name;
+            loan.approvalDate = DateTime.Now.Date;
+
+            DateTime date = DateTime.Now;
+            date = date.AddMonths(1);
+            date = date.AddDays(-DateTime.Now.Day+1);
+
+            loan.loanStartDate = date;
+            loan.loanAmount = model.loanAmount;
+            loan.noOfInsatllments = model.noOfInsatllments;
+            loan.loanStatus = model.loanStatus;
+            loan.remarks = model.remarks;
+
             db.SaveChanges();
             return RedirectToAction("LoanList");
         }
@@ -366,10 +374,10 @@ namespace EMSProj.Controllers
 
         [HttpPost, ActionName("DeleteLoan")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteLoan(int id, Rank model)
+        public ActionResult DeleteLoan(int id, Loan model)
         {
-            var emp = db.Loans.SingleOrDefault(c => c.loanId == id);
-            db.Loans.Remove(emp);
+            var loan = db.Loans.SingleOrDefault(c => c.loanId == id);
+            db.Loans.Remove(loan);
             db.SaveChanges();
             return RedirectToAction("LoanList");
         }

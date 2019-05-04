@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using EMSProj.CollectionViewModels;
+using System.Threading.Tasks;
 
 namespace EMSProj.Controllers
 {
@@ -78,9 +79,94 @@ namespace EMSProj.Controllers
             db.SaveChanges();
             return RedirectToAction("index");
         }
+
+        public ActionResult AddLoan()
+        {
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            var emp = db.Employees.Where(c => c.UserId == user.Id).SingleOrDefault();
+
+            var l = db.Loans.Where(c => c.empId == emp.empId).ToList();
+            foreach(var lonVal in l)
+            {
+                if(lonVal.loanStatus == "p")
+                {
+                                        
+                    return RedirectToAction("LoanList", new { error = "Loan Request is Pending" });
+                }
+                else
+                {
+                    ViewBag.error = "";
+                    var collection = new EmployeeLoanCollectionViewModel
+                    {
+                        Loan = new Loan(),
+                        Employee = emp,
+
+                    };
+
+                    return View(collection);
+                }
+            }
+            return HttpNotFound();
+
+
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddLoan(EmployeeLoanCollectionViewModel model)
+        {
+            var loan = new Loan
+            {
+                empId = model.Employee.empId,
+                requestAmount = model.Loan.requestAmount,
+                requestDate = DateTime.Now.Date,
+                loanAmount = 0,
+                noOfInsatllments = 12,
+                loanStatus = "P",
+                // Pending : P
+
+                
+                
+
+            };
+
+
+            db.Loans.Add(loan);
+            db.SaveChanges();
+            return RedirectToAction("EmployeeList");
+        }
+
         public ActionResult LoanStatus()
         {
-            return View();
+
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            var emp = db.Employees.Where(c => c.UserId == user.Id).SingleOrDefault();
+
+            var loan = db.Loans.Where(c => c.empId == emp.empId).SingleOrDefault();
+
+            var collection = new EmployeeLoanCollectionViewModel
+            {
+                Loan = db.Loans.Where(c=>c.loanId == loan.loanId).SingleOrDefault(),
+               
+                
+                Employee = db.Employees.Where(c => c.empId == emp.empId).SingleOrDefault()
+
+            };
+
+            return View(collection);
+        }
+        
+        public ActionResult LoanList(string error = "")
+        {
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            var emp = db.Employees.Where(c => c.UserId == user.Id).SingleOrDefault();
+
+            var loan = db.Loans.Where(c => c.empId == emp.empId).ToList();
+            ViewBag.name = emp.FirstName + " " + emp.LastName;
+            ViewBag.error = error;
+
+            return View(loan);
         }
     }
 }

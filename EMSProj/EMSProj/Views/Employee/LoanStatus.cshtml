@@ -1,4 +1,4 @@
-﻿@model EMSProj.Loan
+﻿@model EMSProj.CollectionViewModels.EmployeeLoanCollectionViewModel
 
 @{
     ViewBag.Title = "Loan Status";
@@ -8,64 +8,90 @@
 <h2>Loan Status</h2>
 
 <div>
-    <h4>Loan Request</h4>
+    <h4>Loan</h4>
     <hr />
     <dl class="dl-horizontal">
-
         <dt>
-            @Html.DisplayNameFor(model => model.empId)
+            Name
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.empId)
+            @Html.DisplayFor(model => model.Employee.FirstName) @Html.DisplayFor(model => model.Employee.LastName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.requestDate)
+            Request Date
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.requestDate)
+            @Html.DisplayFor(model => model.Loan.requestDate)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.requestAmount)
+            Request Amount
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.requestAmount)
+            @Html.DisplayFor(model => model.Loan.requestAmount)
+        </dd>
+
+        <dt>
+            Status 
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Loan.loanStatus)
+        </dd>
+
+        <dt>
+            Approval Date
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Loan.approvalDate)
+        </dd>
+
+        <dt>
+            Loan Start Date
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Loan.loanStartDate)
+        </dd>
+
+        <dt>
+            Loan Amount
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Loan.loanAmount)
         </dd>
 
 
 
         <dt>
-            @Html.DisplayNameFor(model => model.loanAmount)
+            Installment Plan
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.loanAmount)
+            @Html.DisplayFor(model => model.Loan.noOfInsatllments)
         </dd>
 
 
+
         <dt>
-            @Html.DisplayNameFor(model => model.loanStatus)
+            Remarks
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.loanStatus)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.remarks)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.remarks)
+            @Html.DisplayFor(model => model.Loan.remarks)
         </dd>
 
     </dl>
 </div>
-
 <p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Loan.loanId }, new { @class = "btn btn-success" })
+    <br />
+    @Html.ActionLink("Back to List", "LoanList")
 
 </p>
