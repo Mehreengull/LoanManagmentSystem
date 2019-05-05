@@ -37,9 +37,9 @@ namespace EMSProj
         public Nullable<System.DateTime> DateofJoining { get; set; }
         public Nullable<System.DateTime> DateContractEnd { get; set; }
         public string Cnic { get; set; }
-        public string userID { get; set; }
+        public string UserId { get; set; }
     
-        public virtual AppUser AppUser { get; set; }
+        public virtual AspNetUser AspNetUser { get; set; }
         public virtual Department Department { get; set; }
         public virtual Lookup Lookup { get; set; }
         public virtual Rank Rank1 { get; set; }

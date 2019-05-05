@@ -7,34 +7,37 @@
 
 <h2>Departments List</h2>
 
-<p>
-    @Html.ActionLink("Create New", "AddDepartment")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.depId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th></th>
-    </tr>
+<div style="margin:0;width:100%;border:2px solid Green;padding:20px;">
 
-    @foreach (var item in Model)
-    {
+    <p>
+        @Html.ActionLink("Create New", "AddDepartment", "Admin", null, new { @class = "btn btn-success" })
+    </p>
+    <table class="table">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.depId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "EditDepartment", new { id = item.depId })
-                @Html.ActionLink("Delete", "DeleteDepartment", new { id = item.depId })
-            </td>
+            <th>
+                Dep#
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th></th>
         </tr>
-    }
 
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.depId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "EditDepartment", new { id = item.depId }) |
+                    @Html.ActionLink("Delete", "DeleteDepartment", new { id = item.depId })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

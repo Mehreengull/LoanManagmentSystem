@@ -31,7 +31,27 @@ namespace EMSProj.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            List<Employee> employees = db.Employees.ToList();
+            List<Department> departments = db.Departments.ToList();
+            List<Rank> ranks = db.Ranks.ToList();
+
+            ViewBag.countEmp = db.Employees.Count();
+            ViewBag.countDep = db.Departments.Count();
+            var employeeRecord = from e in employees
+                                 join d in departments on e.DepId equals d.depId into table1
+                                 from d in table1.ToList()
+                                 join i in ranks on e.Rank equals i.rankId into table2
+                                 from i in table2.ToList()
+                                 select new AdminDashboardViewModel
+                                 {
+                                     Employee = e,
+                                     Department = d,
+                                     rank = i
+                                 };
+            return View(employeeRecord);
+
+            
+           
         }
 
 
@@ -381,35 +401,6 @@ namespace EMSProj.Controllers
             db.SaveChanges();
             return RedirectToAction("LoanList");
         }
-        public ActionResult DepartmentReport()
-        {
-            DB51Entities db = new DB51Entities();
-            var c = db.DepartmentViews.ToList();
-            DepartmentReport rept = new DepartmentReport();
-            rept.Load();
-            rept.SetDataSource(c);
-            Stream s = rept.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
-            return File(s, "application/pdf");
-        }
-        public ActionResult RankReport()
-        {
-            DB51Entities db = new DB51Entities();
-            var c = db.rankInfoes.ToList();
-            RankReport rept = new RankReport();
-            rept.Load();
-            rept.SetDataSource(c);
-            Stream s = rept.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
-            return File(s, "application/pdf");
-        }
-        public ActionResult InsallmentReport()
-        {
-            DB51Entities db = new DB51Entities();
-            var c = db.InstalmentDetails.ToList();
-            InstalmentReport rept = new InstalmentReport();
-            rept.Load();
-            rept.SetDataSource(c);
-            Stream s = rept.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
-            return File(s, "application/pdf");
-        }
+
     }
 }

@@ -1,31 +1,41 @@
-﻿
+﻿@model IEnumerable<EMSProj.CollectionViewModels.AdminDashboardViewModel>
+
 @{
-    ViewBag.Title = "DASHBOARD";
+    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Admin.cshtml";
 }
 
-<div style="margin:0">
-    <div style="text-align:center;display:inline-block">
-        <div class="jumbotron">
-            <h1 class="display-4">EMPLOYEES</h1>
-            <p class="lead">0</p>
-            <hr class="my-4">
-        </div>
+<h2>DASHBOARD</h2>
+<div style="margin:0;margin-bottom:7px;width:100%;border:2px solid Green">
 
-        <div class="jumbotron">
-            <h1 class="display-4">DEPARTMENTS</h1>
-            <p class="lead">0</p>
-            <hr class="my-4">
+    <div style="margin:0">
+        <div style="text-align:center;display:inline-block">
+            <div class="jumbotron">
+                <h1 class="display-4">EMPLOYEES</h1>
+                <p class="lead">@ViewBag.countEmp</p>
+                <hr class="my-4">
+            </div>
 
+            <div class="jumbotron">
+                <h1 class="display-4">DEPARTMENTS</h1>
+                <p class="lead">@ViewBag.countDep</p>
+                <hr class="my-4">
+
+            </div>
+            <div class="jumbotron">
+                <h1 class="display-4">&nbsp;&nbsp;&nbsp;&nbsp;LOAN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h1>
+                <p class="lead">0</p>
+                <hr class="my-4">
+            </div>
         </div>
-        <div class="jumbotron">
-            <h1 class="display-4">&nbsp;&nbsp;&nbsp;&nbsp;LOAN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h1>
-            <p class="lead">0</p>
-            <hr class="my-4">
-        </div>
-    </div>
-    <div style="width:100%">
-        <h2>List of Employes in Each Department</h2>
+   </div>
+</div>
+
+
+<div style="width:100%;margin:0">
+    <h2>List of Employes in Each Department</h2>
+    <div style="margin:0;width:100%;border:2px solid Green;padding:10px">
+       
         <table id="table_id" class="table">
             <thead>
                 <tr>
@@ -38,15 +48,23 @@
                     <th>
                         RANK
                     </th>
-                    <th>
-                        TYPE
-                    </th>
+
                 </tr>
             </thead>
             <tbody>
-                <!--All Login Inside It -->
+                @foreach (var item in Model)
+                {
+                    <tr>
+
+                        <td>@item.Department.Name.ToUpper()</td>
+                        <td>@item.Employee.FirstName.ToUpper() @item.Employee.LastName.ToUpper()</td>
+                        <td>@item.rank.Name.ToUpper()</td>
+                    </tr>
+
+                }
             </tbody>
         </table>
     </div>
 </div>
+
 

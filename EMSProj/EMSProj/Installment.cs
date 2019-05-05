@@ -20,6 +20,7 @@ namespace EMSProj
             this.Payments = new HashSet<Payment>();
         }
     
+        public long Id { get; set; }
         public long loanId { get; set; }
         public long installmentNo { get; set; }
         public System.DateTime dueDate { get; set; }

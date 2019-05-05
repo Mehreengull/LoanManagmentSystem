@@ -5,112 +5,107 @@
     Layout = "~/Views/Shared/_Admin.cshtml";
 }
 
-<h2>Employee List</h2>
+<h2>Employees List</h2>
+<div style="margin:0;width:100%;border:2px solid Green;padding:10px;">
 
-<p>
-    @Html.ActionLink("Create New", "AddEmployee")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            Emp#
-        </th>
-        <th>
-            Name
-        </th>
-        
-        <th>
-            Date of Birth
-        </th>
-        <th>
-            State
-        </th>
-        <th>
-            City
-        </th>
-        <th>
-           Province
-        </th>
-        <th>
-            Salary
-        </th>
-        <th>
-            Gender
-        </th>
-      
-        <th>
-            Rank#
-        </th>
-        
-        <th>
-            Email
-        </th>
-        <th>
-            Dep#
-        </th>
-        <th>
-            Date of Joining
-        </th>
-        
-        <th>
-            CNIC
-        </th>
-        <th></th>
-        
-    </tr>
+    <p>
+        @Html.ActionLink("Create New", "AddEmployee", "Admin", null, new { @class = "btn btn-success" })
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                Emp#
+            </th>
+            <th>
+                Name
+            </th>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.empId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstName)  @Html.DisplayFor(modelItem => item.LastName)
-        </td>
-       
-        <td>
-            @Html.DisplayFor(modelItem => item.DateofBirth)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.State)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.City)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Province)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Salary)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Gender)
-        </td>
-        
-        <td>
-            @Html.DisplayFor(modelItem => item.Rank)
-        </td>
-        
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DepId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateofJoining)
-        </td>
+            <th>
+                Date of Birth
+            </th>
+            <th>
+                State
+            </th>
+            <th>
+                City
+            </th>
+            <th>
+                Province
+            </th>
+            <th>
+                Salary
+            </th>
+            <th>
+                Rank#
+            </th>
 
-        <td>
-            @Html.DisplayFor(modelItem => item.Cnic)
-        </td>
-       
-        <td>
-            @Html.ActionLink("Edit", "EditEmployee", new { id = item.empId })
-            
-            @Html.ActionLink("Delete", "DeleteEmployee", new { id = item.empId })
-        </td>
-    </tr>
-}
+            <th>
+                Email
+            </th>
+            <th>
+                Dep#
+            </th>
+            <th>
+                Date of Joining
+            </th>
 
-</table>
+            <th>
+                CNIC
+            </th>
+            <th></th>
+
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.empId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)  @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateofBirth)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.State)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.City)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Province)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Salary)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rank)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DepId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateofJoining)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cnic)
+                </td>
+
+                <td>
+                    @Html.ActionLink("Edit", "EditEmployee", new { id = item.empId })
+
+                    @Html.ActionLink("Delete", "DeleteEmployee", new { id = item.empId })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

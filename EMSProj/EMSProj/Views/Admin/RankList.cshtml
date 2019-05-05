@@ -1,34 +1,45 @@
 ﻿@model IEnumerable<EMSProj.Rank>
 
 @{
-    ViewBag.Title = "RankList";
+    ViewBag.Title = "Ranks List";
     Layout = "~/Views/Shared/_Admin.cshtml";
 }
 
-<h2>RankList</h2>
+<h2>Ranks List</h2>
 
-<p>
-    @Html.ActionLink("Create New", "AddRank")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th></th>
-    </tr>
 
-    @foreach (var item in Model)
-    {
+<div style="margin:0;width:100%;border:2px solid Green;padding:20px;">
+   
+    <p>
+            
+            @Html.ActionLink("Create New", "AddRank", "Admin", null, new { @class = "btn btn-success" })
+    </p>
+    <table class="table">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "EditRank", new { id = item.rankId }) |
-                @Html.ActionLink("Delete", "DeleteRank", new { id = item.rankId })
-            </td>
+            <th>
+                Rank#
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th></th>
         </tr>
-    }
 
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.rankId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "EditRank", new { id = item.rankId }) |
+                    @Html.ActionLink("Delete", "DeleteRank", new { id = item.rankId })
+                </td>
+            </tr>
+        }
+
+    </table>
+    </div>

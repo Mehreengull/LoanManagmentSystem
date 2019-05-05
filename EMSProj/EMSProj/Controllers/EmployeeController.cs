@@ -7,8 +7,6 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using EMSProj.CollectionViewModels;
 using System.Threading.Tasks;
-using System.IO;
-using EMSProj.Models;
 
 namespace EMSProj.Controllers
 {
@@ -169,16 +167,6 @@ namespace EMSProj.Controllers
             ViewBag.error = error;
 
             return View(loan);
-        }
-        public ActionResult Report()
-        {
-            DB51Entities db = new DB51Entities();
-            var c = db.EmployeeReports.ToList();
-            EmpReport rept = new EmpReport();
-            rept.Load();
-            rept.SetDataSource(c);
-            Stream s = rept.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
-            return File(s, "application/pdf");
         }
     }
 }
