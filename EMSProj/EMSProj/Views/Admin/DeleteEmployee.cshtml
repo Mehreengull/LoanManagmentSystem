@@ -1,0 +1,35 @@
+﻿@model EMSProj.Employee
+
+@{
+    ViewBag.Title = "Delete Employee";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h2>Delete Employee</h2>
+
+<div style="margin:0;width:100%;border:2px solid Green;padding:20px;">
+
+
+    <h3>Are you sure you want to delete this?</h3>
+    <div>
+        <h4>Employee</h4>
+        <hr />
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-danger" />
+                <br />
+              
+            </div>
+        }
+    </div>
+
+</div>
+<br />
+<br />
+@Html.ActionLink("Back to List", "EmployeeList", "Admin", null, new { @class = "btn btn-success" })
+
+

@@ -1,0 +1,85 @@
+﻿@model IEnumerable<EMSProj.Loan>
+
+@{
+    ViewBag.Title = "Loan List";
+    Layout = "~/Views/Shared/_Employee.cshtml";
+}
+
+<h2>Loan List</h2>
+
+<p>
+    @Html.ActionLink("Create New", "AddLoan") 
+</p>
+<p style="color:red;width:200px;">
+    @ViewBag.error
+</p>
+<h4>@ViewBag.name Loan Details</h4>
+<table class="table">
+    <tr>
+
+        <th>
+            Request Date
+        </th>
+        <th>
+            Request Amount
+        </th>
+        <th>
+            Loan Status
+        </th>
+        <th>
+            Approval Date
+        </th>
+        <th>
+            Loan Start Date
+        </th>
+        <th>
+            Loan Amount
+        </th>
+        
+        <th>
+            Installment Plan
+        </th>
+
+        <th>
+            Remarks
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => Convert.ToDateTime(item.requestDate).Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.requestAmount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.loanStatus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.approvalDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.loanStartDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.loanAmount)
+        </td>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.noOfInsatllments)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.remarks)
+        </td>
+        <td>
+            
+            @Html.ActionLink("Details", "LoanStatus", new { id = item.loanId })
+            
+        </td>
+    </tr>
+}
+
+</table>
